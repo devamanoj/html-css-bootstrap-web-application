@@ -1,0 +1,132 @@
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+header {
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    color: white;
+    text-align: center;
+    padding: 1.5em 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    margin: 0;
+}
+
+.container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2em 0;
+    box-sizing: border-box;
+}
+
+#tool-container {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 2em;
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+}
+
+.tools {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 2em;
+}
+
+.tools button {
+    padding: 1em 2em;
+    margin: 0.5em;
+    border-radius: 10px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tools button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Specific button colors */
+button[onclick*="currency"] {
+    background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%);
+}
+
+button[onclick*="calculator"] {
+    background: linear-gradient(135deg, #f79d00 0%, #64f38c 100%);
+}
+
+button[onclick*="temperature"] {
+    background: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%);
+}
+
+button[onclick*="weight"] {
+    background: linear-gradient(135deg, #fd746c 0%, #ff9068 100%);
+}
+
+button[onclick*="percentage"] {
+    background: linear-gradient(135deg, #ffafbd 0%, #ffc3a0 100%);
+}
+
+button[onclick*="age"] {
+    background: linear-gradient(135deg, #8e2de2 0%, #4a00e0 100%);
+}
+
+footer {
+    background: linear-gradient(135deg, #1f4037 0%, #99f2c8 100%);
+    color: white;
+    text-align: center;
+    padding: 1em 0;
+    flex-shrink: 0;
+    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Tool-specific styles */
+input[type="number"], input[type="date"], input[type="text"], select {
+    width: calc(100% - 2em);
+    padding: 1em;
+    margin: 0.5em 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+button {
+    padding: 1em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* Calculator styles */
+#calc-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5em;
+}
+
+#calc-buttons button {
+    padding: 1.5em;
+    font-size: 1.2em;
+}

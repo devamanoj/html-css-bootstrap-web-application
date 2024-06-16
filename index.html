@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Application</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Multi-Utility Web Application</h1>
+    </header>
+    <div class="container">
+        <div id="tool-container">
+            <!-- Tools will be dynamically injected here -->
+        </div>
+    </div>
+    <div class="tools">
+        <button onclick="showTool('currency')">Currency Converter</button>
+        <button onclick="showTool('calculator')">Calculator</button>
+        <button onclick="showTool('temperature')">Temperature Converter</button>
+        <button onclick="showTool('weight')">Weight Converter</button>
+        <button onclick="showTool('percentage')">Percentage Calculator</button>
+        <button onclick="showTool('age')">Age Calculator</button>
+    </div>
+    <footer>
+        <p>This app is developed and designed by A. Devanathan</p>
+    </footer>
+    <script>
+        function showTool(tool) {
+            const toolContainer = document.getElementById('tool-container');
+            switch(tool) {
+                case 'currency':
+                    toolContainer.innerHTML = getCurrencyConverter();
+                    break;
+                case 'calculator':
+                    toolContainer.innerHTML = getCalculator();
+                    break;
+                case 'temperature':
+                    toolContainer.innerHTML = getTemperatureConverter();
+                    break;
+                case 'weight':
+                    toolContainer.innerHTML = getWeightConverter();
+                    break;
+                case 'percentage':
+                    toolContainer.innerHTML = getPercentageCalculator();
+                    break;
+                case 'age':
+                    toolContainer.innerHTML = getAgeCalculator();
+                    break;
+                default:
+                    toolContainer.innerHTML = '';
+            }
+        }
+
+        function getCurrencyConverter() {
+            return `
+                <h2>Currency Converter</h2>
+                <input type="number" id="currency-amount" placeholder="Amount" />
+                <select id="currency-from">
+                    <option value="USD">USD</option>
+                    <option value="EUR">EUR</option>
+                    <option value="GBP">GBP</option>
+                    <option value="INR">INR</option>
+                </select>
+                <select id="currency-to">
+                    <option value="USD">USD</option>
+                    <option value="EUR">EUR</option>
+                    <option value="GBP">GBP</option>
+                    <option value="INR">INR</option>
+                </select>
+                <button onclick="convertCurrency()">Convert</button>
+                <p id="currency-result"></p>
+            `;
+        }
+
+        function convertCurrency() {
+            const amount = parseFloat(document.getElementById('currency-amount').value);
+            const fromCurrency = document.getElementById('currency-from').value;
+            const toCurrency = document.getElementById('currency-to').value;
+
+            const exchangeRates = {
+                USD: { EUR: 0.85, GBP: 0.75, INR: 73.5 },
+                EUR: { USD: 1.18, GBP: 0.88, INR: 86.5 },
+                GBP: { USD: 1.33, EUR: 1.14, INR: 98.0 },
+                INR: { USD: 0.014, EUR: 0.012, GBP: 0.010 },
+            };
+
+            const result = amount * (exchangeRates[fromCurrency][toCurrency] || 1);
+            document.getElementById('currency-result').textContent = `Result: ${result.toFixed(2)} ${toCurrency}`;
+        }
+
+        function getCalculator() {
+            return `
+                <h2>Calculator</h2>
+                <input type="text" id="calc-display" disabled />
+                <div id="calc-buttons">
+                    <button onclick="calcAppend('7')">7</button>
+                    <button onclick="calcAppend('8')">8</button>
+                    <button onclick="calcAppend('9')">9</button>
+                    <button onclick="calcAppend('/')">/</button>
+                    <button onclick="calcAppend('4')">4</button>
+                    <button onclick="calcAppend('5')">5</button>
+                    <button onclick="calcAppend('6')">6</button>
+                    <button onclick="calcAppend('*')">*</button>
+                    <button onclick="calcAppend('1')">1</button>
+                    <button onclick="calcAppend('2')">2</button>
+                    <button onclick="calcAppend('3')">3</button>
+                    <button onclick="calcAppend('-')">-</button>
+                    <button onclick="calcAppend('0')">0</button>
+                    <button onclick="calcAppend('.')">.</button>
+                    <button onclick="calcAppend('+')">+</button>
+                    <button onclick="calcCalculate()">=</button>
+                    <button onclick="calcClear()">C</button>
+                </div>
+            `;
+        }
+
+        function calcAppend(value) {
+            const display = document.getElementById('calc-display');
+            display.value += value;
+        }
+
+        function calcCalculate() {
+            const display = document.getElementById('calc-display');
+            try {
+                display.value = eval(display.value);
+            } catch {
+                display.value = 'Error';
+            }
+        }
+
+        function calcClear() {
+            const display = document.getElementById('calc-display');
+            display.value = '';
+        }
+
+        function getTemperatureConverter() {
+            return `
+                <h2>Temperature Converter</h2>
+                <input type="number" id="temp-value" placeholder="Value" />
+                <select id="temp-from">
+                    <option value="C">Celsius</option>
+                    <option value="F">Fahrenheit</option>
+                </select>
+                <select id="temp-to">
+                    <option value="C">Celsius</option>
+                    <option value="F">Fahrenheit</option>
+                </select>
+                <button onclick="convertTemperature()">Convert</button>
+                <p id="temp-result"></p>
+            `;
+        }
+
+        function convertTemperature() {
+            const value = parseFloat(document.getElementById('temp-value').value);
+            const fromUnit = document.getElementById('temp-from').value;
+            const toUnit = document.getElementById('temp-to').value;
+
+            let result;
+            if (fromUnit === toUnit) {
+                result = value;
+            } else if (fromUnit === 'C' && toUnit === 'F') {
+                result = (value * 9/5) + 32;
+            } else if (fromUnit === 'F' && toUnit === 'C') {
+                result = (value - 32) * 5/9;
+            }
+
+            document.getElementById('temp-result').textContent = `Result: ${result.toFixed(2)} ${toUnit}`;
+        }
+
+        function getWeightConverter() {
+            return `
+                <h2>Weight Converter</h2>
+                <input type="number" id="weight-value" placeholder="Value" />
+                <select id="weight-from">
+                    <option value="kg">Kilograms</option>
+                    <option value="lb">Pounds</option>
+                </select>
+                <select id="weight-to">
+                    <option value="kg">Kilograms</option>
+                    <option value="lb">Pounds</option>
+                </select>
+                <button onclick="convertWeight()">Convert</button>
+                <p id="weight-result"></p>
+            `;
+        }
+
+        function convertWeight() {
+            const value = parseFloat(document.getElementById('weight-value').value);
+            const fromUnit = document.getElementById('weight-from').value;
+            const toUnit = document.getElementById('weight-to').value;
+
+            let result;
+            if (fromUnit === toUnit) {
+                result = value;
+            } else if (fromUnit === 'kg' && toUnit === 'lb') {
+                result = value * 2.20462;
+            } else if (fromUnit === 'lb' && toUnit === 'kg') {
+                result = value / 2.20462;
+            }
+
+            document.getElementById('weight-result').textContent = `Result: ${result.toFixed(2)} ${toUnit}`;
+        }
+
+        function getPercentageCalculator() {
+            return `
+                <h2>Percentage Calculator</h2>
+                <input type="number" id="percentage-value" placeholder="Value" />
+                <input type="number" id="percentage-total" placeholder="Total" />
+                <button onclick="calculatePercentage()">Calculate</button>
+                <p id="percentage-result"></p>
+            `;
+        }
+
+        function calculatePercentage() {
+            const value = parseFloat(document.getElementById('percentage-value').value);
+            const total = parseFloat(document.getElementById('percentage-total').value);
+            const result = (value / total) * 100;
+            document.getElementById('percentage-result').textContent = `Result: ${result.toFixed(2)}%`;
+        }
+
+        function getAgeCalculator() {
+            return `
+                <h2>Age Calculator</h2>
+                <input type="date" id="birthdate" />
+                <button onclick="calculateAge()">Calculate Age</button>
+                <p id="age-result"></p>
+            `;
+        }
+
+        function calculateAge() {
+            const birthdate = new Date(document.getElementById('birthdate').value);
+            const today = new Date();
+            let age = today.getFullYear() - birthdate.getFullYear();
+            const m = today.getMonth() - birthdate.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < birthdate.getDate())) {
+                age--;
+            }
+            document.getElementById('age-result').textContent = `Age: ${age} years`;
+        }
+    </script>
+</body>
+</html>
